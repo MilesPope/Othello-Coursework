@@ -2,6 +2,8 @@
 Module providing initialisation functions for board and methods to print and check legal moves
 """
 
+from colorama import Fore
+
 def initialise_board(size:int = 8) -> list:
     """
     Return an initialised Othello board for the given size
@@ -49,14 +51,20 @@ def print_board(board:list) -> None:
         "Black " : "B",
         None : "N"
     }
+    colour_map = {
+        "White" : Fore.GREEN,
+        "Black " : Fore.RED,
+        None: Fore.WHITE
+    }
 
     for row in board:
         for cell in row:
             try:
                 cell_representation = representation_map[cell]
+                colour_representation = colour_map[cell]
             except KeyError:
                 raise KeyError(f"Unrecognised board entry {cell}") from None
-            print("|" + cell_representation + "|", end="")
+            print(colour_representation + "|" + cell_representation + "|", end="")
         print("\n")
 
 def legal_move(colour:str, coord:tuple, board:list) -> bool:
@@ -114,7 +122,3 @@ def legal_move(colour:str, coord:tuple, board:list) -> bool:
 
 cur_board = initialise_board()
 print_board(cur_board)
-for x1 in range(8):
-    for y1 in range(8):
-        if legal_move("White", (x1,y1), cur_board):
-            print(f"({x1}, {y1}) legal for white? {legal_move("White", (x1,y1), cur_board)}")
