@@ -30,10 +30,10 @@ def initialise_board(size:int = 8) -> list:
     # Place starting tokens
     mid = size // 2
 
-    board[mid-1][mid-1] = "White"
-    board[mid-1][mid] = "Black "
-    board[mid][mid-1] = "Black "
-    board[mid][mid] = "White"
+    board[mid-1][mid-1] = "Light"
+    board[mid-1][mid] = "Dark  "
+    board[mid][mid-1] = "Dark  "
+    board[mid][mid] = "Light"
 
     # Return the initialised board
     return board
@@ -47,13 +47,13 @@ def print_board(board:list) -> None:
     """
 
     representation_map = {
-        "White" : "W",
-        "Black " : "B",
+        "Light" : "W",
+        "Dark  " : "B",
         None : "N"
     }
     colour_map = {
-        "White" : Fore.GREEN,
-        "Black " : Fore.RED,
+        "Light" : Fore.GREEN,
+        "Dark  " : Fore.RED,
         None: Fore.WHITE
     }
 
@@ -71,7 +71,7 @@ def legal_move(colour:str, coord:tuple, board:list) -> bool:
     """
     Check whether a given move of placing a counter at a coordinate as a player is a legal move
     
-    :param colour: either "Black " or "White" depending on who's turn it is
+    :param colour: either "Dark  " or "Light" depending on who's turn it is
     :type colour: str
     :param coord: coordinate to check
     :type coord: tuple
@@ -84,7 +84,7 @@ def legal_move(colour:str, coord:tuple, board:list) -> bool:
     # Initialise variables
     x = coord[0]
     y = coord[1]
-    opponent = "Black " if colour == "White" else "White"
+    opponent = "Dark  " if colour == "Light" else "Light"
     board_size = len(board)
 
     # Check whether coordinate is empty

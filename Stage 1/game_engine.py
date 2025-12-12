@@ -90,26 +90,26 @@ def check_win(board:list) -> list:
     
     :param board: 2d array representing the board
     :type board: list
-    :return: a list containing a tuple with scores (white, black) and a winner
+    :return: a list containing a tuple with scores (Light, black) and a winner
     :rtype: list
     """
-    white_tokens, black_tokens = 0, 0
+    Light_tokens, black_tokens = 0, 0
     for row in board:
         for cell in row:
-            if cell == "Black ":
+            if cell == "Dark ":
                 black_tokens += 1
-            elif cell == "White":
-                white_tokens += 1
+            elif cell == "Light":
+                Light_tokens += 1
 
     winner = None
-    if black_tokens > white_tokens:
-        winner = "Black "
-    elif white_tokens > black_tokens:
-        winner = "White"
+    if black_tokens > Light_tokens:
+        winner = "Dark "
+    elif Light_tokens > black_tokens:
+        winner = "Light"
     else:
         winner = "Draw"
 
-    return ((white_tokens, black_tokens), winner)
+    return ((Light_tokens, black_tokens), winner)
 
 def simple_game_loop() -> None:
     """
@@ -123,16 +123,16 @@ def simple_game_loop() -> None:
     move_counter = 60
     while move_counter > 0:
         # Check which players have possible moves
-        black_has_legal = has_legal_move(cur_board, "Black ")
-        white_has_legal = has_legal_move(cur_board, "White")
+        black_has_legal = has_legal_move(cur_board, "Dark ")
+        Light_has_legal = has_legal_move(cur_board, "Light")
         # If neither player has possible turns, quit the loop:
-        if not (black_has_legal or white_has_legal):
+        if not (black_has_legal or Light_has_legal):
             break
-        # By default, black goes first:
+        # By default, Dark goes first:
         if move_counter % 2 == 0 and black_has_legal:
-            cur_player = "Black "
+            cur_player = "Dark "
         else:
-            cur_player = "White"
+            cur_player = "Light"
 
         # Display info to CLI
         print_board(cur_board)
