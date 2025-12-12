@@ -2,20 +2,10 @@
     "board": [
         [
             null,
+            null,
+            null,
             "Dark ",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
             "Light",
-            "Light",
-            "Light",
-            null,
             null,
             null,
             null
@@ -23,11 +13,11 @@
         [
             null,
             null,
+            null,
+            "Dark ",
             "Dark ",
             "Light",
-            null,
-            null,
-            null,
+            "Light",
             null
         ],
         [
@@ -35,27 +25,37 @@
             "Dark ",
             "Dark ",
             "Dark ",
-            "Light",
             "Dark ",
             "Dark ",
-            null
-        ],
-        [
-            null,
-            null,
-            "Dark ",
-            "Dark ",
-            "Dark ",
-            "Light",
             null,
             null
         ],
         [
             null,
             null,
+            null,
             "Dark ",
             "Dark ",
             "Dark ",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
             null,
             null,
             null

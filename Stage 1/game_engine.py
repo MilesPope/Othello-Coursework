@@ -67,7 +67,7 @@ def outflanked(board:list, colour:str, coords:list) -> list:
 
     return board
 
-def has_legal_move(board, colour) -> bool:
+def has_legal_move(board:list, colour:str) -> bool:
     """
     Check if there is a possible move for a given player
     
@@ -78,11 +78,36 @@ def has_legal_move(board, colour) -> bool:
     """
     for x in range(len(board)):
         for y in range(len(board)):
-            if board[x][y] is not None:
+            if board[y][x] is not None:
                 pass
             elif legal_move(colour, (x,y), board):
                 return True
     return False
+    # if len(find_legal_moves(board, colour)) == 0:
+    #     return False
+    # else:
+    #     return True
+
+def find_legal_moves(board:list, colour:str) -> list:
+    """
+    Find the legal moves for a given board for a given player
+    
+    :param board: 2D list representation of the board state
+    :type board: list
+    :param colour: String representing who's go it is
+    :type colour: str
+    :return: An array of tuples containing (x,y) coordinates for legal moves
+    :rtype: list
+    """
+    # Go through every cell of the board and check if it's a legal move
+    legal_moves = []
+    for x, y in enumerate(range(len(board))):
+        if board[y][x]:
+            pass
+        elif legal_move(colour, (x,y), board):
+            legal_moves.append((x,y))
+    return legal_moves
+
 
 def check_win(board:list) -> list:
     """
@@ -93,23 +118,23 @@ def check_win(board:list) -> list:
     :return: a list containing a tuple with scores (Light, black) and a winner
     :rtype: list
     """
-    Light_tokens, black_tokens = 0, 0
+    light_tokens, black_tokens = 0, 0
     for row in board:
         for cell in row:
             if cell == "Dark ":
                 black_tokens += 1
             elif cell == "Light":
-                Light_tokens += 1
+                light_tokens += 1
 
     winner = None
-    if black_tokens > Light_tokens:
+    if black_tokens > light_tokens:
         winner = "Dark "
-    elif Light_tokens > black_tokens:
+    elif light_tokens > black_tokens:
         winner = "Light"
     else:
         winner = "Draw"
 
-    return ((Light_tokens, black_tokens), winner)
+    return ((light_tokens, black_tokens), winner)
 
 def simple_game_loop() -> None:
     """
@@ -124,9 +149,9 @@ def simple_game_loop() -> None:
     while move_counter > 0:
         # Check which players have possible moves
         black_has_legal = has_legal_move(cur_board, "Dark ")
-        Light_has_legal = has_legal_move(cur_board, "Light")
+        light_has_legal = has_legal_move(cur_board, "Light")
         # If neither player has possible turns, quit the loop:
-        if not (black_has_legal or Light_has_legal):
+        if not (black_has_legal or light_has_legal):
             break
         # By default, Dark goes first:
         if move_counter % 2 == 0 and black_has_legal:

@@ -7,7 +7,7 @@ import os
 
 from flask import Flask, render_template, request
 from components import initialise_board, legal_move, print_board
-from game_engine import GameState, outflanked, has_legal_move
+from game_engine import GameState, outflanked, has_legal_move, check_win
 
 app = Flask(__name__)
 
@@ -20,6 +20,12 @@ def index():
     # board = initialise_board()
     # return render_template("board.html", game_board=board)
     global game_state
+
+    try:
+        if game_state.finished:
+            os.remove("game_state.json")
+    except NameError:
+        pass
     # If we don't already have a game_state.json file make one:
     if not os.path.exists("game_state.json"):
         game_state = GameState(board=initialise_board(), cur_player="Dark ")
@@ -61,7 +67,20 @@ def move():
 
         # If neither player has possible moves, the game is done
         if not (dark_has_legal or light_has_legal):
+            print("Game is finished")
+            check_winner = check_win(game_state.board)
+            if check_winner[1] != "Draw":
+                message = f"{check_winner[1]} has won {check_winner[0][0]}:{check_winner[0][1]}"
+            else:
+                message = f"Draw at {check_winner[0][0]}!"
             game_state.finished = True
+            message = message + "\nRefresh to start new game"
+            return {
+                "status" : "n/a",
+                "player" : "n/a",
+                "board" : game_state.board,
+                "finished" : message
+            }
 
         if game_state.cur_player == "Dark " and light_has_legal:
             game_state.cur_player = "Light"
@@ -80,20 +99,19 @@ def move():
             "board" : game_state.board,
             "player" : game_state.cur_player
         }
-    
-    # If the move is illegal:
-    else:
-        message = None
-        # No changes to make - based on why move is illegal
-        if game_state.board[y][x] is not None:
-            message = "Cell already occupied"
-        else:
-            message = "No outflanked peices"
 
-        return {
-            "status" : "fail",
-            "finished" : game_state.finished,
-            "board" : game_state.board,
-            "player" : game_state.cur_player,
-            "message" : message
-        }
+    # If the move is illegal:
+    message = None
+    # No changes to make - based on why move is illegal
+    if game_state.board[y][x] is not None:
+        message = "Cell already occupied"
+    else:
+        message = "No outflanked peices"
+
+    return {
+        "status" : "fail",
+        "finished" : game_state.finished,
+        "board" : game_state.board,
+        "player" : game_state.cur_player,
+        "message" : message
+    }

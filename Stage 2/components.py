@@ -117,6 +117,7 @@ def legal_move(colour:str, coord:tuple, board:list) -> bool:
                         if board[next_y][next_x] == colour:
                             terminating_player = True
             if terminating_player and next_opponent:
+                # print(f"Found line which outflanks dx={dx}, dy={dy}")
                 return True
     return False
 
