@@ -1,0 +1,86 @@
+{
+    "board": [
+        [
+            null,
+            null,
+            null,
+            "Dark ",
+            "Light",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "Dark ",
+            "Dark ",
+            "Light",
+            "Light",
+            null
+        ],
+        [
+            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ]
+    ],
+    "cur_player": "Light",
+    "finished": false
+}
