@@ -8,6 +8,7 @@ import os
 from flask import Flask, render_template, request
 from components import initialise_board, legal_move, print_board
 from game_engine import GameState, outflanked, has_legal_move, check_win
+from ai_opponent import number_flipped, possible_flip_counts, choose_move
 
 app = Flask(__name__)
 
@@ -57,35 +58,54 @@ def move():
 
     # If the requested move is legal:
     if legal_move(game_state.cur_player, (x,y), game_state.board):
+        # Store how many tokens the move flips
+        move_flips = number_flipped(game_state.board, game_state.cur_player, (x,y)) 
         # Mutate board
         game_state.board[y][x] = game_state.cur_player
         game_state.board = outflanked(game_state.board, game_state.cur_player, (x,y))
 
-        # Change the current player
+        # Check who can go
         dark_has_legal = has_legal_move(game_state.board, "Dark ")
         light_has_legal = has_legal_move(game_state.board, "Light")
 
-        # If neither player has possible moves, the game is done
-        if not (dark_has_legal or light_has_legal):
-            print("Game is finished")
-            check_winner = check_win(game_state.board)
-            if check_winner[1] != "Draw":
-                message = f"{check_winner[1]} has won {check_winner[0][0]}:{check_winner[0][1]}"
-            else:
-                message = f"Draw at {check_winner[0][0]}!"
-            game_state.finished = True
-            message = message + "\nRefresh to start new game"
-            return {
-                "status" : "n/a",
-                "player" : "n/a",
-                "board" : game_state.board,
-                "finished" : message
-            }
+        # AI takes a move if it can
+        if light_has_legal:
+            # AI takes its turn
+            AI_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
+            game_state.board[AI_move[1]][AI_move[0]] = "Light"
+            game_state.board = outflanked(game_state.board, "Light", AI_move)
 
-        if game_state.cur_player == "Dark " and light_has_legal:
-            game_state.cur_player = "Light"
-        else:
-            game_state.cur_player = "Dark "
+        # Make the AI go until it's not their turn anymore
+        while True:
+            # Calculate legal moves
+            dark_has_legal = has_legal_move(game_state.board, "Dark ")
+            light_has_legal = has_legal_move(game_state.board, "Light")
+
+            # Game ends if neither player can go
+            if not (dark_has_legal or light_has_legal):
+                print("Game is finished")
+                check_winner = check_win(game_state.board)
+                if check_winner[1] != "Draw":
+                    message = f"{check_winner[1]} has won {check_winner[0][0]}:{check_winner[0][1]}"
+                else:
+                    message = f"Draw at {check_winner[0][0]}!"
+                game_state.finished = True
+                message = message + "\nRefresh to start new game"
+                return {
+                    "status" : "n/a",
+                    "player" : "n/a",
+                    "board" : game_state.board,
+                    "finished" : message
+                }
+
+            if light_has_legal and not dark_has_legal:
+                # AI takes its turn
+                AI_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
+                game_state.board[AI_move[1]][AI_move[0]] = "Light"
+                game_state.board = outflanked(game_state.board, "Light", AI_move)
+                continue # Go back to top of while True to recheck game state
+
+            break
 
         # Update the json file
         with open("game_state.json", "w", encoding="UTF-8") as f:

@@ -57,7 +57,7 @@ def outflanked(board:list, colour:str, coords:list) -> list:
                 elif cur_token == colour:
                     flip_line = True
                     break
-                
+
                 line_coords.append(cur_coords.copy()) # prevent just same thing being appended
                 cur_coords[0] += dx
                 cur_coords[1] += dy

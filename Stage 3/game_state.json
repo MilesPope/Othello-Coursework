@@ -1,19 +1,49 @@
 {
     "board": [
         [
-            null,
-            null,
-            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Light",
+            "Dark "
+        ],
+        [
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
             "Dark ",
             "Light",
-            null,
-            null,
+            "Dark "
+        ],
+        [
+            "Dark ",
+            "Light",
+            "Dark ",
+            "Light",
+            "Light",
+            "Dark ",
+            "Light",
             null
         ],
         [
-            null,
-            null,
-            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Light",
+            "Dark "
+        ],
+        [
+            "Dark ",
+            "Light",
+            "Light",
             "Dark ",
             "Dark ",
             "Light",
@@ -21,66 +51,36 @@
             null
         ],
         [
-            null,
+            "Dark ",
+            "Dark ",
+            "Dark ",
+            "Light",
+            "Light",
+            "Dark ",
+            "Light",
+            "Light"
+        ],
+        [
             "Dark ",
             "Dark ",
             "Dark ",
             "Dark ",
             "Dark ",
-            null,
+            "Light",
+            "Light",
             null
         ],
         [
-            null,
-            null,
-            null,
             "Dark ",
             "Dark ",
             "Dark ",
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
             "Dark ",
-            "Dark ",
-            "Dark ",
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            "Light",
+            "Light",
+            "Light",
             null
         ]
     ],
-    "cur_player": "Light",
+    "cur_player": "Dark ",
     "finished": false
 }

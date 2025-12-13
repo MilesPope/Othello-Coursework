@@ -3,20 +3,20 @@
         [
             null,
             null,
-            null,
-            "Dark ",
-            "Light",
-            null,
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
             "Dark ",
             "Dark ",
             "Light",
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            "Dark ",
+            "Dark ",
+            "Light",
+            "Light",
             "Light",
             null
         ],
@@ -26,8 +26,18 @@
             "Dark ",
             "Dark ",
             "Dark ",
+            "Light",
             "Dark ",
+            null
+        ],
+        [
             null,
+            null,
+            null,
+            "Dark ",
+            "Light",
+            "Dark ",
+            "Light",
             null
         ],
         [
@@ -43,18 +53,8 @@
         [
             null,
             null,
-            null,
+            "Light",
             "Dark ",
-            "Dark ",
-            "Dark ",
-            null,
-            null
-        ],
-        [
-            null,
-            null,
-            null,
-            null,
             null,
             null,
             null,
