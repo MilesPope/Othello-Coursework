@@ -1,0 +1,15 @@
+astroid
+blinker
+click
+colorama
+drill
+Flask
+isort
+itsdangerous
+Jinja2
+MarkupSafe
+mccabe
+pip
+platformdirs
+tomlkit
+Werkzeug

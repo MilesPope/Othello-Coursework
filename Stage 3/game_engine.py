@@ -154,6 +154,8 @@ def simple_game_loop() -> None:
     # Initialise variables for game
     cur_board = initialise_board()
     move_counter = 60
+
+    # iterate for as long as the game lasts
     while move_counter > 0:
         # Check which players have possible moves
         black_has_legal = has_legal_move(cur_board, "Dark ")
