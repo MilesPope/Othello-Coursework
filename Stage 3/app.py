@@ -51,7 +51,8 @@ def index():
 @app.route("/move", methods=["GET", "POST"])
 def move():
     """
-    Where the user has made a move, update game state if it's a legal move
+    Where the user has made a move, update game state if it's a legal move. 
+    Then get the AI to make a move. Update game state, and pass back to player.
     """
     x = request.args.get("x", type=int)
     y = request.args.get("y", type=int)
@@ -59,7 +60,7 @@ def move():
     # If the requested move is legal:
     if legal_move(game_state.cur_player, (x,y), game_state.board):
         # Store how many tokens the move flips
-        move_flips = number_flipped(game_state.board, game_state.cur_player, (x,y)) 
+        move_flips = number_flipped(game_state.board, game_state.cur_player, (x,y))
         # Mutate board
         game_state.board[y][x] = game_state.cur_player
         game_state.board = outflanked(game_state.board, game_state.cur_player, (x,y))
@@ -71,9 +72,9 @@ def move():
         # AI takes a move if it can
         if light_has_legal:
             # AI takes its turn
-            AI_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
-            game_state.board[AI_move[1]][AI_move[0]] = "Light"
-            game_state.board = outflanked(game_state.board, "Light", AI_move)
+            ai_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
+            game_state.board[ai_move[1]][ai_move[0]] = "Light"
+            game_state.board = outflanked(game_state.board, "Light", ai_move)
 
         # Make the AI go until it's not their turn anymore
         while True:
@@ -82,7 +83,7 @@ def move():
             light_has_legal = has_legal_move(game_state.board, "Light")
 
             # Game ends if neither player can go
-            if not (dark_has_legal or light_has_legal):
+            if not dark_has_legal and not light_has_legal:
                 print("Game is finished")
                 check_winner = check_win(game_state.board)
                 if check_winner[1] != "Draw":
@@ -100,9 +101,9 @@ def move():
 
             if light_has_legal and not dark_has_legal:
                 # AI takes its turn
-                AI_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
-                game_state.board[AI_move[1]][AI_move[0]] = "Light"
-                game_state.board = outflanked(game_state.board, "Light", AI_move)
+                ai_move = choose_move(move_flips, possible_flip_counts(game_state.board, "Light"))
+                game_state.board[ai_move[1]][ai_move[0]] = "Light"
+                game_state.board = outflanked(game_state.board, "Light", ai_move)
                 continue # Go back to top of while True to recheck game state
 
             break

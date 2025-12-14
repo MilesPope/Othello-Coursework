@@ -77,12 +77,14 @@ def has_legal_move(board, colour) -> bool:
     :return: boolean representing if the player has a possible move
     :rtype: bool
     """
+    # count_checked = 0
     for x in range(len(board)):
         for y in range(len(board)):
-            if board[x][y] is not None:
-                pass
-            elif legal_move(colour, (x,y), board):
-                return True
+            if board[y][x] is None:
+                # count_checked += 1
+                if legal_move(colour, (x,y), board):
+                    return True
+    # print(f"Counted {count_checked}, no legals")
     return False
 
 def check_win(board:list) -> list:

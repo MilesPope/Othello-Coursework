@@ -99,27 +99,45 @@ def legal_move(colour:str, coord:tuple, board:list) -> bool:
     # least one opposing peice followed by one player peice
     for dx in [-1,0,1]:
         for dy in [-1,0,1]:
-            next_opponent = False
-            terminating_player = False
+
+            # Skip (0,0)
+            if dx == 0 and dy == 0:
+                continue
+
             neighbour_x = x + dx
             neighbour_y = y + dy
-            if 0 <= neighbour_x < board_size and 0 <= neighbour_y < board_size:
-                # If the cell is of opponent colour:
-                if board[neighbour_y][neighbour_x] == opponent:
-                    next_opponent = True # The peice adjacent belongs to opponent
-                    next_x = neighbour_x
-                    next_y = neighbour_y
-                    while 0 <= next_x+dx < board_size and 0 <= next_y+dy < board_size:
-                        # Increment the next x and y
-                        next_x += dx
-                        next_y += dy
-                        # Check if the next cell belongs to the player
-                        if board[next_y][next_x] == colour:
-                            terminating_player = True
-            if terminating_player and next_opponent:
-                # print(f"Found line which outflanks dx={dx}, dy={dy}")
-                return True
-    return False
 
-cur_board = initialise_board()
-print_board(cur_board)
+
+            # Skip if out of bounrs
+            if not (0 <= neighbour_x < board_size and 0 <= neighbour_y < board_size):
+                continue
+
+            # Skip if next token is not opponent's peice
+            if board[neighbour_y][neighbour_x] != opponent:
+                continue
+
+            # At this stage we know the next token in the line is an opponent peice
+            # Go through, and check if its a string of opponent peices
+            # AND terminated by player's peice
+            next_x = neighbour_x
+            next_y = neighbour_y
+
+            # Continue going until we meet a break case
+            while True:
+                next_x += dx
+                next_y += dy
+
+                # Break if out of bounds:
+                if not (0 <= next_x < board_size and 0 <= next_y < board_size):
+                    break
+
+                # Break if no token
+                if board[next_y][next_x] is None:
+                    break
+
+                # If the next peice belongs to player then we have a legal move!
+                if board[next_y][next_x] == colour:
+                    # print(f"Found legal for ({x},{y}) with line ({dx},{dy})")
+                    return True # yay!
+    # If we go through all possible lines without a hit, no legal moves!
+    return False
