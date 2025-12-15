@@ -128,3 +128,6 @@ The persistance of game states is done through the use of JSON. I thought the mo
 ## GameState Class
 ![GameState UML diagram](/othello/Stage%204/images/GameState_UML.png)
 The functionality required from the GameState class was to be able to be easily translated to JSON, and also to be easily instantiated through JSON. This was provided by the to_dict and from_dict methods. Furthermore, the game state needed to store all the required information for the game to be resumed only from its attributes, which is possible by using the state of the board, the current player, and whether the game is finished or not.
+
+# Testing
+Automated testing was implemented through use of unittest. This choice was made to avoid external dependencies while still providing repeatable and structured testing of core game logic. 

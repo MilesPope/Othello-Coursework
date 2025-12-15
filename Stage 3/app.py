@@ -22,11 +22,13 @@ def index():
     # return render_template("board.html", game_board=board)
     global game_state
 
+    # If the game is finished, delete the game state so we can make a new one
     try:
         if game_state.finished:
             os.remove("game_state.json")
     except NameError:
         pass
+    
     # If we don't already have a game_state.json file make one:
     if not os.path.exists("game_state.json"):
         game_state = GameState(board=initialise_board(), cur_player="Dark ")
@@ -38,8 +40,6 @@ def index():
     elif os.path.exists("game_state.json"):
         with open("game_state.json", "r", encoding="UTF-8") as f:
             game_state = GameState.from_dict(json.load(f))
-
-    print_board(game_state.board)
 
     return render_template(
         "board.html",

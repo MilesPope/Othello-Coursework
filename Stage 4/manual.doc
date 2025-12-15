@@ -1,3 +1,20 @@
 To install dependancies, open terminal and run 'pip install -r requirements.txt'
 To access a command line interface version of the game, run 'game_engine.py'
 To access the GUI version of the game, run 'flask run' in the 'Stage 3' folder, and open the localhost link given in the terminal.
+
+Appendix A - Automanted Test Results
+This appendix documents the execution and results of the test_suite.py file developed.
+These tests were made and executed using the built-in unittest framework to check core game logic functioned as intended.
+This included move legality, outflanked token being flipped, game termination and AI functionality.
+
+The tests were run from the Stage 3 folder using the following command:
+    `python -m unittest discover`
+And the results of this were as follows:
+    (venv) ➜  Stage 3 git:(main) ✗ python -m unittest discover
+    ....................
+    ----------------------------------------------------------------------
+    Ran 20 tests in 0.001s
+
+    OK
+All tests passed, including ones containing edge cases that previously caused errors during development. 
+This confirmes intended game logic behaves as expected across all expected use. 
